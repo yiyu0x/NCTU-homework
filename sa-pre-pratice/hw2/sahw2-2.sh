@@ -76,6 +76,7 @@ Mac____: $mac_addr" 50 70
     done
 }
 
+
 function file_browser {
     function file_info {
         file_name=$1
@@ -107,15 +108,17 @@ function file_browser {
         selected_file=$(dialog --menu "File Browser: $PWD" 50 70 70 $files --output-fd 1)
         if [ $? != "0" ]
         then
-            exit 0 
+            break 
         elif [ $selected_file = ".." ]
         then
             cd ..
             file_browser .
+            break
         elif [ -d $selected_file ] 
         then
             cd $selected_file
             file_browser .
+            break
         else
             file_info $selected_file
         fi
