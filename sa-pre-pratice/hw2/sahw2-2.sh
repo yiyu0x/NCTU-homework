@@ -11,7 +11,7 @@ CPU Core: $cpu_core" 50 70
 }
 
 memory_info(){
-    unit_converter() {
+    unit_converter(){
 		local counter=0
 		local mem=$1
 		local mem_float=$1
@@ -77,8 +77,8 @@ Mac____: $mac_addr" 50 70
 }
 
 
-function file_browser {
-    function file_info {
+file_browser(){
+    file_info(){
         file_name=$1
         fname="<File Name>: "$(basename $file_name)"\n\n"
         finfo="<File Info>: "$(file $file_name | cut -d ':' -f 2)"\n\n"
@@ -125,7 +125,9 @@ function file_browser {
     done
 }
 
+curr_dir=$PWD
 while true; do
+    cd $curr_dir
     selected=$(dialog --title "SYS INFO" --menu "" 50 70 70 \
         1 "CPU INFO" \
         2 "MEMORY INFO" \
