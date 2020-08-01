@@ -63,9 +63,9 @@ network_info(){
                         --output-fd 1)
         if [ "$?" = 0 ]
         then
-            ipv4_addr=$(ifconfig em0 | awk '/\tinet.*netmask.*broadcast/ {print $2}')
-            netmask=$(ifconfig em0 | awk '/\tinet.*netmask.*broadcast/ {print $4}')
-            mac_addr=$(ifconfig em0 | awk '/\tether/ {print $2}')
+            ipv4_addr=$(ifconfig $selected | awk '/\tinet.*netmask/ {print $2}')
+            netmask=$(ifconfig $selected | awk '/\tinet.*netmask/ {print $4}')
+            mac_addr=$(ifconfig $selected | awk '/\tether/ {print $2}')
             dialog --msgbox "Interface Name: $selected\n\n
 IPV4___: $ipv4_addr\n
 Netmask: $netmask\n
@@ -143,7 +143,6 @@ while true; do
             4) file_browser .;;
         esac
     else
-        exit 0
-        clear
+        break
     fi
 done
