@@ -82,7 +82,7 @@ file_browser(){
         file_name=$1
         fname="<File Name>: "$(basename $file_name)"\n\n"
         finfo="<File Info>: "$(file $file_name | cut -d ':' -f 2)"\n\n"
-        fsize="<File Size>: "$(ls -lh $file_name | cut -d ' ' -f 9)
+        fsize="<File Size>: "$(ls -lh $file_name | awk '{print $5}')
         info_str=$fname$finfo$fsize
         file $file_name | grep -q "text" 
         is_text=$?
@@ -128,7 +128,7 @@ file_browser(){
 curr_dir=$PWD
 while true; do
     cd $curr_dir
-    selected=$(dialog --title "SYS INFO" --menu "" 50 70 70 \
+    selected=$(dialog --menu "SYS INFO" 50 70 70 \
         1 "CPU INFO" \
         2 "MEMORY INFO" \
         3 "NETWORK INFO" \
