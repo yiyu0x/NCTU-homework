@@ -125,6 +125,24 @@ file_browser(){
     done
 }
 
+cpu_usage(){
+    cpu_usage_string=$(top -PCH | grep "CPU [0-9]" | awk '{print "CPU" NR-1 ": " "USER: " $3 " SYST: " $7 " IDLE: " $11 "\\n"}')
+    cpu_loading_sum=$(top -PCH | grep "CPU [0-9]" | awk '{print $3}' | tr -d % | awk '{sum += $1} END {print sum}')
+    cpu_nice_sum=$(top -PCH | grep "CPU [0-9]" | awk '{print $5}' | tr -d % | awk '{sum += $1} END {print sum}')
+    cpu_sys_sum=$(top -PCH | grep "CPU [0-9]" | awk '{print $7}' | tr -d % | awk '{sum += $1} END {print sum}')
+    cpu_interrupt_sum=$(top -PCH | grep "CPU [0-9]" | awk '{print $9}' | tr -d % | awk '{sum += $1} END {print sum}')
+    cpu_cores=$(top -PCH | grep "CPU [0-9]" | wc -l | tr -d " ")
+    percent=$(echo "scale=0; ($cpu_loading_sum + $cpu_nice_sum + $cpu_sys_sum + $cpu_interrupt_sum + $cpu_cores)/$cpu_cores" | bc -l)
+    while true; do
+        dialog --mixedgauge "CPU Loading\n\n$cpu_usage_string" 50 70 $percent 
+        read -t 3 key
+        VALID=$?
+        if [ $VALID = 0 ]; then 
+            break; 
+        fi
+    done
+}
+
 curr_dir=$PWD
 while true; do
     cd $curr_dir
@@ -133,6 +151,7 @@ while true; do
         2 "MEMORY INFO" \
         3 "NETWORK INFO" \
         4 "FILE BROWSER" \
+        5 "CPU USAGE" \
         --output-fd 1)
     if [ "$?" = 0 ]
     then 
@@ -141,6 +160,7 @@ while true; do
             2) memory_info;;
             3) network_info;;
             4) file_browser .;;
+            5) cpu_usage;;
         esac
     else
         break
