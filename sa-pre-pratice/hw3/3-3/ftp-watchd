@@ -8,7 +8,7 @@ load_rc_config "ftp_watchd" # Loads the config file, if relevant.
 
 pidfile="/var/run/pure-uploadscript.pid"
 command="/usr/local/sbin/pure-uploadscript"
-command_args="-B -r $ftp_watched_command -p $pidfile"
+command_args="-B -r $ftp_watchd_command -p $pidfile"
 
 fstop() {
     pid=$(check_pidfile $pidfile /usr/local/sbin/pure-uploadscript)
