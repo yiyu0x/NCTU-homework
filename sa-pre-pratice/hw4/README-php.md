@@ -1,5 +1,7 @@
 # HW4
 
+ref: [https://www.cyberciti.biz/faq/freebsd-install-php-7-2-with-fpm-for-nginx/](https://www.cyberciti.biz/faq/freebsd-install-php-7-2-with-fpm-for-nginx/)
+
 ## Install php and php-fpm 
 
 Install php and php-extensions:
