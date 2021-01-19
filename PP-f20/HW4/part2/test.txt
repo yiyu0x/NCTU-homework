@@ -1,0 +1,15 @@
+    // const int *a;
+    // const int *b;
+    // int ptr = 0;
+    // for(int i = 0; i < n; i++ ){
+    //     for(int j = 0; j < l; j++){
+    //         ptr = 0;
+    //         for(int k = 0; k < m; k++){
+    //             a = a_mat + i * m + k;
+    //             b = b_mat + k * l + j;
+    //             ptr += *a * (*b);
+    //         }
+    //         printf("%d ", ptr);            
+    //     }
+    //     printf("\n");
+    // }
